@@ -3,14 +3,14 @@ defmodule Cliente do
   Implementa un actor que representa un Cliente.
   """
 
-  @spec start_cliente() :: :ok
+  @spec start_cliente(String.t()) :: :ok
   def start_cliente(nombre) do
     spawn(fn -> cliente_loop(nombre) end)
   end
 
   # Se gestiona la lógica del cliente.
   # Mantiene el control sobre el estado implementando un `receive` el cual recibe y envia mensajes
-  @spec cliente_loop() :: :ok
+  @spec cliente_loop(String.t()) :: :ok
   defp cliente_loop(nombre) do
     receive do
       {:orden_entregada, orden} ->

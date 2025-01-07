@@ -14,16 +14,16 @@ defmodule Repartidor do
   defp repartir_loop do
     receive do
       {:entregar_orden, cliente, orden} ->
-        IO.puts("[Mesero]: Entregando #{orden} a #{inspect(cliente)}...")
+        IO.puts("[Repartidor]: Entregando #{orden} a #{inspect(cliente)}...")
         :timer.sleep(1000)  # Simula el tiempo de entrega
         send(cliente, {:orden_entregada, orden})
         repartir_loop()
 
       :cerrar ->
-        IO.puts("[Mesero]: Cerrando servicio de entrega.")
+        IO.puts("[Repartidor]: Cerrando servicio de entrega.")
 
       _ ->
-        IO.puts("[Mesero]: Mensaje desconocido.")
+        IO.puts("[Repartidor]: Mensaje desconocido.")
         repartir_loop()
     end
   end

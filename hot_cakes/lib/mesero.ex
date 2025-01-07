@@ -3,27 +3,27 @@ defmodule Mesero do
   Implementa un actor que representa un Mesero.
   """
 
-  @spec start_tomador() :: :ok
-  def start_tomador do
-    spawn(fn -> tomador_loop() end)
+  @spec start_tomando_pedido() :: :ok
+  def start_tomando_pedido do
+    spawn(fn -> tomando_pedido_loop() end)
   end
 
   # Se gestiona la lógica del Mesero.
   # Mantiene el control sobre el estado implementando un receive el cual recibe y envia mensajes
-  @spec tomador_loop() :: :ok
-  defp tomador_loop do
+  @spec tomando_pedido_loop() :: :ok
+  defp tomando_pedido_loop do
     receive do
       {:nuevo_pedido, cliente, orden, cocinero} ->
-        IO.puts("[Tomador]: Pedido recibido de #{inspect(cliente)}: #{orden}")
+        IO.puts("[Mesero]: Pedido recibido de #{inspect(cliente)}: #{orden}")
         send(cocinero, {:preparar_orden, cliente, orden})
-        tomador_loop()
+        tomando_pedido_loop()
 
       :cerrar ->
-        IO.puts("[Tomador]: Cerrando servicio.")
+        IO.puts("[Mesero]: Cerrando servicio.")
 
       _ ->
-        IO.puts("[Tomador]: Mensaje desconocido.")
-        tomador_loop()
+        IO.puts("[Mesero]: Mensaje desconocido.")
+        tomando_pedido_loop()
     end
   end
 end

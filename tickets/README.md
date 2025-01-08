@@ -1,7 +1,5 @@
 # Tickets
 
-**TODO: Add description**
-
 Este proyecto demuestra cómo utilizar Broadway con RabbitMQ para crear una data ingestion pipeline que maneja la disponibilidad de boleto
 
 Tecnologías

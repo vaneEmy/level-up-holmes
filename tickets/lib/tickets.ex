@@ -31,4 +31,10 @@ defmodule Tickets do
     # Simulamos que accedemos a la base de datos.
     Enum.filter(@users, & &1.id in ids)
   end
+
+  def insert_all_tickets(messages) do
+    # Hariamos un Repo.insert_all/3
+    Process.sleep(Enum.count(messages) * 250)
+    messages
+  end
 end

@@ -22,6 +22,11 @@ defmodule BookingsPipeline do
         default: [
           concurrency: System.schedulers_online() * 2
         ]
+      ],
+      batchers: [
+        cinema: [],
+        musical: [],
+        default: []
       ]
     ]
 
@@ -60,10 +65,16 @@ defmodule BookingsPipeline do
 
     # Checamos por disponibilidad de tickets
     if Tickets.tickets_available?(event) do
-      Tickets.create_ticket(user, event)
-      Tickets.send_email(user)
+      case message do
+        %{data: %{event: "cinema"}} = message ->
+          Message.put_batcher(message, :cinema)
 
-      IO.inspect(message, label: "Message")
+        %{data: %{event: "musical"}} = message ->
+          Message.put_batcher(message, :musical)
+
+        message ->
+          message
+      end
     else
       Message.failed(message, "bookings-closed")
     end
@@ -80,5 +91,17 @@ defmodule BookingsPipeline do
 
       message -> message
     end)
+  end
+
+  def handle_batch(_batcher, messages, batch_info, _context) do
+    IO.puts("#{inspect(self())} Batch #{batch_info.batcher} #{batch_info.batch_key}")
+
+    messages
+    |> Tickets.insert_all_tickets()
+    |> Enum.each(fn %{data: %{user: user}} ->
+      Tickets.send_email(user)
+    end)
+
+    messages
   end
 end

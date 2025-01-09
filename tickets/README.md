@@ -1,6 +1,6 @@
 # Tickets
 
-Este proyecto demuestra cómo utilizar Broadway con RabbitMQ para crear una data ingestion pipeline que maneja la disponibilidad de boleto
+Este proyecto demuestra cómo utilizar Broadway con RabbitMQ para crear una data ingestion pipeline que maneja la disponibilidad de boletos
 
 Tecnologías
 
@@ -22,7 +22,7 @@ Puedes instalarlo utilizando una imagen de docker
     rabbitmq:management
 ```
 
-Después de ejecutar el comando, abre tu navegador web y visita:
+Después de ejecutar el comando, pudes acceder al panel de administración de RabbitMQ:
 
 `http://localhost:15672`
 
@@ -50,7 +50,7 @@ Después de ejecutar el comando, abre tu navegador web y visita:
   iex -S mix
 ```
 
-4. Puedes enviar mensajes a rabbitmq a traves de ejecutar la función send_messages, el cual recibe como argumento el número de mensajes que queremos enviar, esto nos ayuda el tener que estar enviando mensaje por mensaje en el panel de administracion de RabbiMQ
+4. Puedes enviar mensajes a rabbitmq a traves de ejecutar la función `send_messages`, el cual recibe como argumento el número de mensajes que queremos enviar, esto nos ayuda el tener que estar enviando mensaje por mensaje en el panel de administracion de RabbitMQ.
 
 ```shell  
   send_messages.(2)

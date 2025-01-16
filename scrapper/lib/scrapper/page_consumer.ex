@@ -7,7 +7,7 @@ defmodule PageConsumer do
     Logger.info("PageConsumer received #{event}")
 
     Task.start_link(fn ->
-      Scraper.work()
+      Scrapper.work()
     end)
   end
 

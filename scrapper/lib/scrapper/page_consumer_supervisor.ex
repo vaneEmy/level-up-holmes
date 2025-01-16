@@ -22,7 +22,8 @@ defmodule PageConsumerSupervisor do
       strategy: :one_for_one,
       subscribe_to: [
         # Cuando solo habia dos etapas: {PageProducer, max_demand: 2}
-        {OnlinePageProducerConsumer, max_demand: 2}
+        {OnlinePageProducerConsumer.via("online_page_producer_consumer_1"), []},
+        {OnlinePageProducerConsumer.via("online_page_producer_consumer_2"), []}
       ]
     ]
 
